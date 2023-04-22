@@ -1,6 +1,9 @@
-package project.CurrencyConverter;
+package project;
 
 import org.apache.commons.cli.*;
+import project.calculator.ExchangeRateExtractor;
+import project.calculator.PrincipalCalculator;
+import project.exception.MissingInputArgumentException;
 
 import java.math.BigDecimal;
 import java.util.Map;
@@ -20,13 +23,11 @@ public class CurrencyConverter {
 
         try {
             request = inputRequestParser(args);
+
             ExchangeRateExtractor exRateExtractor = new ExchangeRateExtractor(request.getExChangeRateFilePath());
-            Map<String,BigDecimal> exRatemap =  exRateExtractor.extractExchangeRate();
+            Map<String,BigDecimal> exRateMap =  exRateExtractor.extractExchangeRate();
 
-            ExchangeRateConverter exchangeRateConverter = new ExchangeRateConverter(exRatemap);
-            BigDecimal currencyRate =  exchangeRateConverter.convertCurrency(request.getSrcCurrency(),request.getTargetCurrency());
-
-            PrincipalCalculator calculator = new PrincipalCalculator(request,currencyRate);
+            PrincipalCalculator calculator = new PrincipalCalculator(request,exRateMap);
             calculator.calculate();
 
         } catch (ParseException | MissingInputArgumentException e) {

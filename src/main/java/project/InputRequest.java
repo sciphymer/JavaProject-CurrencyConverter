@@ -1,4 +1,4 @@
-package project.CurrencyConverter;
+package project;
 
 public class InputRequest {
     private String srcCurrency;

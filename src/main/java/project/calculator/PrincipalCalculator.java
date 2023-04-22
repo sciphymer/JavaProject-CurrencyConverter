@@ -1,17 +1,23 @@
-package project.CurrencyConverter;
+package project.calculator;
+
+import project.InputRequest;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Map;
 
 public class PrincipalCalculator {
 
     BigDecimal amount;
     BigDecimal currencyRate;
     InputRequest request;
-    public PrincipalCalculator(InputRequest request, BigDecimal currencyRate) {
+    ExchangeRateConverter exchangeRateConverter;
+
+    public PrincipalCalculator(InputRequest request, Map<String,BigDecimal> exchangeRateMap) {
+        this.exchangeRateConverter = new ExchangeRateConverter(exchangeRateMap);
+        this.currencyRate =  exchangeRateConverter.convertCurrency(request.getSrcCurrency(),request.getTargetCurrency());
         this.request = request;
         this.amount = new BigDecimal(request.getAmount()).setScale(6);
-        this.currencyRate = currencyRate;
     }
 
     public BigDecimal calculate(){

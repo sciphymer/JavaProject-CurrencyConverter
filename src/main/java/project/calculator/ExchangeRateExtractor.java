@@ -1,4 +1,4 @@
-package project.CurrencyConverter;
+package project.calculator;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;

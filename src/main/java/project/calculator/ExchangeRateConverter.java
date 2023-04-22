@@ -1,4 +1,6 @@
-package project.CurrencyConverter;
+package project.calculator;
+
+import project.exception.CurrencyRateNotFoundException;
 
 import java.math.BigDecimal;
 import java.util.Map;
