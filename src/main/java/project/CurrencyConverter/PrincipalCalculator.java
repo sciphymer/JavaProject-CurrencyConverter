@@ -7,7 +7,6 @@ public class PrincipalCalculator {
 
     BigDecimal amount;
     BigDecimal currencyRate;
-
     InputRequest request;
     public PrincipalCalculator(InputRequest request, BigDecimal currencyRate) {
         this.request = request;

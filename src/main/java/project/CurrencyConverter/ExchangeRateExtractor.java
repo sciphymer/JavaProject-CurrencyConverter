@@ -10,6 +10,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,7 +37,7 @@ public class ExchangeRateExtractor {
                 Node nRate = nList.item(i).getAttributes().getNamedItem("rate");
                 if (nCurrency != null && nRate != null) {
                     String currency = nCurrency.getNodeValue();
-                    BigDecimal rate = new BigDecimal(nRate.getNodeValue()).setScale(6);
+                    BigDecimal rate = new BigDecimal(nRate.getNodeValue()).setScale(6, RoundingMode.HALF_EVEN);
                     exRateMap.put(currency, rate);
                 }
             }
