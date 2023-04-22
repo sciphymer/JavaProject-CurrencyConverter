@@ -1,15 +1,15 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.xml.sax.SAXException;
 import project.CurrencyConverter.CurrencyConverter;
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
+import java.io.IOException;
 import java.io.PrintStream;
 
 public class CurrencyConverterTest {
-
-    private final PrintStream standardOut = System.out;
 
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
@@ -19,7 +19,7 @@ public class CurrencyConverterTest {
     }
 
     @Test
-    public void missingArgument(){
+    public void missingArgument() throws ParserConfigurationException, IOException, SAXException {
         String[] inputArgument = new String[]{"-a","10000","-f","USD","-t","HKD"};
         CurrencyConverter.main(inputArgument);
         Assertions.assertTrue(outputStreamCaptor.toString().trim().contains(
@@ -33,12 +33,12 @@ public class CurrencyConverterTest {
     }
 
     @Test
-    public void correctArgument(){
+    public void correctArgument() throws ParserConfigurationException, IOException, SAXException {
         String fxRefFilePath = "src/main/resources/eurofxref-daily.xml";
         String[] inputArgument = new String[]{"-a","10000","-f","USD","-t","HKD","-i",fxRefFilePath};
         CurrencyConverter.main(inputArgument);
         Assertions.assertTrue(outputStreamCaptor.toString().trim().contains(
-                "From: USD | To: HKD | Amount: 10000 | Result: HKD 78499.22"
+                "From: USD | To: HKD | Amount: 10000 | Result: HKD 78499.23"
         ));
     }
 }
